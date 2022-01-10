@@ -16,7 +16,7 @@ class IndividualInvestments:
         self._link = self.URL.format(agency_id)
         self.browser = Selenium()
         self.browser.open_available_browser(self._link)
-
+    # Medium: openLink -> open_link
     def openLink(self, link):
         self.browser.open_available_browser(link)
 
@@ -61,7 +61,8 @@ class IndividualInvestments:
         for row in rows:
             full_data.append(self.get_row_value(row))
         return full_data
-
+    
+    # Medium: downloadPDF -> download_pdf
     def downloadPDF(self, link, path=None):
         filename = f"{link.split('/')[-1]}.pdf"
         load_dir = f'{os.getcwd()}/{path}'
@@ -76,6 +77,7 @@ class IndividualInvestments:
 
     def parse(self, fileExcel, worksheet):
         headers = self.get_table_headers()
+        # Medium: Please detect all variable name (except ClassName) and change them to snake_case  
         fileExcel.create_headers(headers, worksheet)
         content = self.get_table_body()
         for row in content:
