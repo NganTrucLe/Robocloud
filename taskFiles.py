@@ -1,11 +1,9 @@
-import logging
-
 from RPA.Excel.Files import Files
 from RPA.Browser.Selenium import Selenium
 from RPA.FileSystem import FileSystem
 
 
-class saveExcel:
+class SaveExcel:
     def __init__(self, path, worksheet):
         excel = Files()
         self.workbook = excel.create_workbook(path)

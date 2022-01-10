@@ -11,8 +11,10 @@ class AgenciesList:
     def agencies_list(self):
         self.browser.wait_until_element_is_visible('//*[@href="#home-dive-in"]')
         self.browser.click_element('//*[@href="#home-dive-in"]')
-        self.browser.wait_until_element_is_visible(locator=['css:div.noUnderline'])
-        agencies = self.browser.get_webelements('css:div.noUnderline')
+        self.browser.wait_until_element_is_visible(
+            locator=['//div[@id="agency-tiles-container"]/div/div/div/div'])
+        agencies = self.browser.get_webelements(
+            '//div[@id="agency-tiles-container"]/div/div/div/div')
         return agencies
 
     def agency_name(self, agency_element):

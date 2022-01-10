@@ -2,7 +2,7 @@ import logging
 
 from RPA.Browser.Selenium import Selenium
 
-from taskFiles import saveExcel
+from taskFiles import SaveExcel
 from agencies import AgenciesList
 from individual import IndividualInvestments
 
@@ -13,13 +13,13 @@ class RPARobot:
         self.browser = Selenium()
         self.output_folder = 'output'
         self.list_parser = AgenciesList()
-        self.detail_parser = IndividualInvestments('020')
+        self.detail_parser = IndividualInvestments('393')
         logfile = f'{self.output_folder}/log_file.log'
         logging.basicConfig(level=logging.INFO, filename=logfile)
 
     def run(self):
         agencies_list_parser = self.list_parser.parse()
-        excel = saveExcel("output/ITDashBoard.xlsx", "Agencies")
+        excel = SaveExcel("output/ITDashBoard.xlsx", "Agencies")
         headers = ['name', 'amount']
         excel.create_headers(headers, "Agencies")
         for agencies_row in agencies_list_parser:

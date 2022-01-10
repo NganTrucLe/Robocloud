@@ -2,7 +2,7 @@ import datetime
 
 from RPA.Browser.Selenium import Selenium
 from RPA.FileSystem import FileSystem
-from taskFiles import saveExcel
+from taskFiles import SaveExcel
 
 import os
 
@@ -16,9 +16,6 @@ class IndividualInvestments:
         self._link = self.URL.format(agency_id)
         self.browser = Selenium()
         self.browser.open_available_browser(self._link)
-
-    def openLink(self, link):
-        self.browser.open_available_browser(link)
 
     def click_select_all(self):
         self.browser.wait_until_element_is_visible(
@@ -66,7 +63,7 @@ class IndividualInvestments:
         filename = f"{link.split('/')[-1]}.pdf"
         load_dir = f'{os.getcwd()}/{path}'
         self.browser.set_download_directory(load_dir, True)
-        self.openLink(link)
+        self.browser.open_available_browser(link)
         self.browser.wait_until_element_is_visible(
             '//div[@id="business-case-pdf"]/a')
         self.browser.click_element('//div[@id="business-case-pdf"]/a')
