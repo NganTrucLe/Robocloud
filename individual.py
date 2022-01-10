@@ -1,11 +1,14 @@
 import datetime
+
 from RPA.Browser.Selenium import Selenium
 from RPA.FileSystem import FileSystem
 from taskFiles import saveExcel
 
-import os, re
+import os
+
 
 class IndividualInvestments:
+
     URL = "https://itdashboard.gov/drupal/summary/{}"
     filesystem = FileSystem()
 
@@ -13,12 +16,13 @@ class IndividualInvestments:
         self._link = self.URL.format(agency_id)
         self.browser = Selenium()
         self.browser.open_available_browser(self._link)
-    
+
     def openLink(self, link):
         self.browser.open_available_browser(link)
-    
+
     def click_select_all(self):
-        self.browser.wait_until_element_is_visible('//div[@class="pageSelect"]/div')
+        self.browser.wait_until_element_is_visible(
+            '//div[@class="pageSelect"]/div')
         self.browser.click_element('//div[@class="pageSelect"]/div')
         self.browser.wait_until_element_is_visible(
             '//div[@class="pageSelect"]/div/label/select/option[4]')
@@ -46,7 +50,7 @@ class IndividualInvestments:
         for header in headers:
             data_headers.append(header.text)
         return data_headers
-    
+
     def get_table_body(self):
         self.click_select_all()
         self.browser.wait_until_element_is_visible(
@@ -61,21 +65,23 @@ class IndividualInvestments:
     def downloadPDF(self, link, path=None):
         filename = f"{link.split('/')[-1]}.pdf"
         load_dir = f'{os.getcwd()}/{path}'
-        self.browser.set_download_directory(load_dir,True)
+        self.browser.set_download_directory(load_dir, True)
         self.openLink(link)
-        self.browser.wait_until_element_is_visible('//div[@id="business-case-pdf"]/a')
+        self.browser.wait_until_element_is_visible(
+            '//div[@id="business-case-pdf"]/a')
         self.browser.click_element('//div[@id="business-case-pdf"]/a')
-        self.filesystem.wait_until_created(f"{load_dir}/{filename}",timeout=60.0)
+        self.filesystem.wait_until_created(
+            f"{load_dir}/{filename}", timeout=60.0)
         self.browser.close_browser()
 
     def parse(self, fileExcel, worksheet):
         headers = self.get_table_headers()
-        fileExcel.create_headers(headers,worksheet)
+        fileExcel.create_headers(headers, worksheet)
         content = self.get_table_body()
         for row in content:
-            fileExcel.append_row(row,worksheet)
+            fileExcel.append_row(row, worksheet)
         anchors = self.browser.get_webelements(
             '//div[@class="dataTables_scrollBody"]//tbody/tr//a')
         for anchor in anchors:
             link = anchor.get_attribute('href')
-            self.downloadPDF(link,'output')
+            self.downloadPDF(link, 'output')
