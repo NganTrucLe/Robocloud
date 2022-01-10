@@ -1,10 +1,11 @@
+# Low: Unused import ? (pardon me if I'm wrong. I don't write python)
 import logging
 
 from RPA.Excel.Files import Files
 from RPA.Browser.Selenium import Selenium
 from RPA.FileSystem import FileSystem
 
-
+# Low: Classname should be SaveExcel for consistency
 class saveExcel:
     def __init__(self, path, worksheet):
         excel = Files()
