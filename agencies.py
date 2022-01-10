@@ -11,6 +11,7 @@ class AgenciesList:
     def agencies_list(self):
         self.browser.wait_until_element_is_visible('//*[@href="#home-dive-in"]')
         self.browser.click_element('//*[@href="#home-dive-in"]')
+        # Medium: please don't use generic styling tag like noUnderline to select element. Style can change. Please change it to a structure query
         self.browser.wait_until_element_is_visible(locator=['css:div.noUnderline'])
         agencies = self.browser.get_webelements('css:div.noUnderline')
         return agencies
