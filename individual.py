@@ -17,6 +17,7 @@ class IndividualInvestments:
         self.browser = Selenium()
         self.browser.open_available_browser(self._link)
     # Medium: openLink -> open_link
+    # However, I don't think this method is neccessary your function simply call another function with
     def openLink(self, link):
         self.browser.open_available_browser(link)
 
