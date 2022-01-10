@@ -35,4 +35,3 @@ class AgenciesList:
                 self.agency_amount(agency_element)]
             agencies.append(agency)
         return agencies
-        
